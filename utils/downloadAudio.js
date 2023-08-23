@@ -1,21 +1,21 @@
 const { spawn } = require("child_process");
-const getM3u8Url = require("./getM3u8Url");
+const getStreamInfo = require("./getStreamInfo");
 
 const downloadAudio = async (link) => {
-  const x = await getM3u8Url(link);
+  const streamInfo = await getStreamInfo(link);
 
-  if (x?.url) {
+  if (streamInfo?.url) {
     const ffmpegProcess = spawn("ffmpeg", [
       "-i",
-      x.url,
-      `/Users/elikem/Downloads/${x.pageTitle}.mp3`,
+      streamInfo.url,
+      `/Users/elikem/Downloads/${streamInfo.pageTitle}.mp3`,
     ]);
 
     ffmpegProcess.on("close", (code) => {
       if (code === 0) {
-        console.log("Conversion successful.");
+        console.log("Download successful ✅");
       } else {
-        console.error(`Conversion failed with code ${code}`);
+        console.error(`Download failed with code ${code}`);
       }
     });
 
