@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
 
-const getStreamInfo = async (link) => {
-  return new Promise(async (resolve, reject) => {
+const getRoomInfo = async (link) => {
+  return new Promise(async (resolve) => {
     const browser = await puppeteer.launch({ headless: "new" });
     const page = await browser.newPage();
 
@@ -16,17 +16,20 @@ const getStreamInfo = async (link) => {
         response?.url &&
         response?.url?.includes("get_replay_channel_playlist")
       ) {
-        const pageTitle = await page.title();
+        const pageTitle = (await page.title())
+          .replace(":", "")
+          .replace("/", " ");
         resolve({ url: response.url, pageTitle });
       }
     });
 
     await page.goto(link, {
       waitUntil: "networkidle2",
+      timeout: 0,
     });
 
     await browser.close();
   });
 };
 
-module.exports = getStreamInfo;
+module.exports = getRoomInfo;

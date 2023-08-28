@@ -12,6 +12,7 @@
   "author": "Obed Anku",
   "license": "ISC",
   "dependencies": {
+    "chalk": "4.1.2",
     "puppeteer": "^21.1.0"
   }
 }
