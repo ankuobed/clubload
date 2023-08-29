@@ -31,6 +31,8 @@ const getLatestRoomUrl = async () => {
     rooms.push({ link, date });
   }
 
+  await browser.close();
+
   const firstRoom = rooms[0];
   const secondRoom = rooms[1];
 
