@@ -17,7 +17,7 @@ const getLatestRoomUrl = async () => {
     await page.goto(profileLink, { timeout: 0 });
 
     const latestRoomElement = await page.waitForSelector(
-      "div.sc-4e8ef0fd-0.ebmOkg > :first-child"
+      "::-p-text(SPEAKER IN) + div > :first-child"
     );
 
     const linkElement = await latestRoomElement.waitForSelector("a");
